@@ -1,23 +1,20 @@
-const drawing = document.getElementById("box");
-const context = drawing.getContext("2d");
-let x = 0,
-    y = 100;
-const arr = Object.keys(Array.from({
-    length: 100
-})).map(function (item) {
-    return +item;
-});
+const x = 0,y = 0;
 
-function FisherYatesShuffle(arr) {
-    for (let i = 1; i < arr.length; i++) {
+const createArr = function (num){
+    this.arr = Object.keys(Array.from({
+        length: num
+    })).map(function (item) {
+        return +item;
+    });
+
+};
+
+createArr.prototype.FisherYatesShuffle = function () {
+    for (let i = 1; i < this.arr.length; i++) {
         const random = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[random]] = [arr[random], arr[i]];
+        [this.arr[i], this.arr[random]] = [this.arr[random], this.arr[i]];
     }
-    return arr;
-}
-
-let newArr = FisherYatesShuffle(arr);
-
+};
 
 function bubbleSort(arr) {
     let length = arr.length;
@@ -30,23 +27,23 @@ function bubbleSort(arr) {
     }
 }
 
-function drawLine(context) {
+function drawLine(context,arr) {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-    for (let i = 0; i < newArr.length; i++) {
-        if ()
-            }
-
-}
-
-function draw() {
-    context.beginPath();
-    context.fillStyle = "#000";
-    context.fillRect(0, 0, 1500, 500);
-    for (let i = 0; i < newArr.length; i++) {
-        drawLine(context, x, y - arr[i], 3, "#fff", 0);
-        x += 3;
+    for (let i = 0; i < arr.length; i++) {
+        context.lineWidth = 3;
+        context.strokeStyle = '#000';
+        context.lineTo(x, y);
     }
 }
 
-draw();
-bubbleSort(newArr);
+(function draw() {
+    const drawing = document.getElementById("box");
+    const context = drawing.getContext("2d");
+    let newArr = new createArr(100);
+    newArr.FisherYatesShuffle();
+
+    setTimeout(function () {
+        drawLine(context,newArr)
+    }, 40)
+})();
+
