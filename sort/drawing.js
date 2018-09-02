@@ -1,4 +1,4 @@
-const x = 0,y = 0;
+let x = 0,y = 0;
 
 const createArr = function (num){
     this.arr = Object.keys(Array.from({
@@ -30,20 +30,25 @@ function bubbleSort(arr) {
 function drawLine(context,arr) {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     for (let i = 0; i < arr.length; i++) {
+        y = 640 - arr[i];
+        context.beginPath();
         context.lineWidth = 3;
         context.strokeStyle = '#000';
+        context.moveTo(x,640);
         context.lineTo(x, y);
+        context.stroke();
+        x+=3;
     }
 }
 
 (function draw() {
     const drawing = document.getElementById("box");
     const context = drawing.getContext("2d");
-    let newArr = new createArr(100);
+    let newArr = new createArr(640);
     newArr.FisherYatesShuffle();
 
     setTimeout(function () {
-        drawLine(context,newArr)
-    }, 40)
+        drawLine(context,newArr.arr);
+    }, 1000)
 })();
 
