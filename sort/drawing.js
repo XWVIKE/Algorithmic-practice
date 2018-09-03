@@ -17,10 +17,9 @@ createArr.prototype.FisherYatesShuffle = function () {
 };
 
 function bubbleSort(arr) {
-    let length = arr.length;
-    for (let i = 0; i < length; i++) {
-        for (let j = 0; j < length - 1; j++) {
-            if (arr[j] > arr[i]) {
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length - 1; j++) {
+            if (arr[j] > arr[j+1]) {
                 [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
             }
         }
@@ -47,8 +46,10 @@ function drawLine(context,arr) {
     let newArr = new createArr(640);
     newArr.FisherYatesShuffle();
 
-    setTimeout(function () {
+    setInterval(function () {
         drawLine(context,newArr.arr);
+        bubbleSort(newArr.arr);
+        x = 0;y  = 0;
     }, 1000)
 })();
 
