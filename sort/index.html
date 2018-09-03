@@ -4,10 +4,47 @@
     <meta charset="UTF-8">
     <title>sort</title>
     <link rel="stylesheet" href="public.css">
+    <style>
+        #control{
+            width: 300px;
+            position: relative;
+            top: -1300px;
+            left: 1500px;
+        }
+        #control label{
+            display: block;
+            width: 200px;
+            height: 50px;
+        }
+        select{
+            width: 100%;
+            height: 100%;
+            font-size: 30px;
+        }
+        input{
+             margin-top: 10px;
+            width: 100px;
+             height: 30px;
+        }
+    </style>
 </head>
 <body>
-
 <script src="createhtml.js"></script>
+<div id="control">
+    <label>
+        <select id="select">
+            <option value="bubbleSort">冒泡排序</option>
+            <option value="selectionSort">选择排序</option>
+            <option value="insertionSort">插入排序</option>
+            <option value="mergeSort">归并排序</option>
+            <option value="quickSort">快速排序</option>
+            <option value="heapSort">堆排序</option>
+        </select>
+    </label>
+    <input type="button" value="start">
+    <input type="button" value="pause">
+    <input type="button" value="restart">
+</div>
 <script src="drawing.js"></script>
 </body>
 </html>
