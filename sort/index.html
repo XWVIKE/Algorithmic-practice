@@ -9,7 +9,7 @@
             width: 300px;
             position: relative;
             top: -1300px;
-            left: 1500px;
+            left: 1526px;
         }
         #control label{
             display: block;
@@ -32,7 +32,7 @@
 <script src="createhtml.js"></script>
 <div id="control">
     <label>
-        <select id="select">
+        <select id="select" onchange="switchButt(this.value)">
             <option value="bubbleSort">冒泡排序</option>
             <option value="selectionSort">选择排序</option>
             <option value="insertionSort">插入排序</option>
@@ -41,9 +41,9 @@
             <option value="heapSort">堆排序</option>
         </select>
     </label>
-    <input type="button" value="start">
-    <input type="button" value="pause">
-    <input type="button" value="restart">
+    <input type="button" value="start" id="start">
+    <input type="button" value="pause" id="pause">
+    <input type="button" value="restart" id="restart">
 </div>
 <script src="drawing.js"></script>
 </body>

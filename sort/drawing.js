@@ -1,5 +1,10 @@
 let x = 0,y = 0;
 let arrLength = 37;
+let lineWidth = 40.5;
+let status;
+const start = document.getElementById("start");
+const pause = document.getElementById("pause");
+const restart = document.getElementById("restart");
 const createArr = function (num){
     this.arr = Object.keys(Array.from({
         length: num
@@ -16,7 +21,7 @@ createArr.prototype.FisherYatesShuffle = function () {
     }
 };
 
-function bubbleSort(arr) {
+function BubbleSort(arr) {
     let process = [arr.slice()];
     for (let i = 0; i < arr.length; i++) {
         for (let j = 0; j < arr.length - 1; j++) {
@@ -30,35 +35,52 @@ function bubbleSort(arr) {
 }
 function drawLine(context,arr) {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    context.fillStyle = "#e1edff";
+    context.fillRect(0,0,context.canvas.width, context.canvas.height);
     for (let i = 0; i < arr.length; i++) {
         y = (arrLength*arrLength)-arrLength * arr[i];
         context.beginPath();
-        context.lineWidth = 40;
+        context.lineWidth = lineWidth;
         context.strokeStyle = '#000';
         context.moveTo(x,arrLength*arrLength);
         context.lineTo(x, y);
         context.stroke();
-        x+=40.5;
+        x+=lineWidth;
     }
 }
 
-function draw() {
+function draw(func1,func2) {
     const drawing = document.getElementById("box");
     const context = drawing.getContext("2d");
     let newArr = new createArr(arrLength);
     newArr.FisherYatesShuffle();
-    let process =bubbleSort(newArr.arr);
+    let process =func1(newArr.arr) ;
     console.log(process);
-    process.forEach((item,index)=>{
-        setTimeout(function () {
-            drawLine(context,item);
-            x = 0;y = 0;
-        },index*50);
-
-    })
+    func2(process[0]);
+    if (status = 1) {
+        process.forEach((item,index)=>{
+            setTimeout(function () {
+                func2(context,item);
+                x = 0;y = 0;
+            },index*50);
+        })
+    }
 }
+window.onload = function () {
+    const drawing = document.getElementById("box");
+    const context = drawing.getContext("2d");
+    context.fillStyle = "#c4dbff";
+    context.fillRect(0,0,context.canvas.width, context.canvas.height);
+};
+function switchButt (value) {
+    switch (value) {
+        case "bubbleSort":
+            draw(BubbleSort,drawLine);
+            break;
+        case "selectionSort":
+            draw();
+            break;
+        default:return;
 
-let select = document.getElementById("select");
-select.addEventListener(function () {
-
-})
+    }
+}
