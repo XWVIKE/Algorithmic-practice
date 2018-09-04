@@ -64,20 +64,71 @@ function InsertionSort(arr) {
     return process;
 }
 
-function MergeSort(arr) {
-    function merge(left, right) {
-        let result = [];
-        while (left.length && right.length) {
-            result.push(left[0] <= right[0] ? left.shift() : right.shift())
+/*function MergeSort(arr) {
+    let process = [arr.slice()];
+    mergeSortRec(arr,process);
+    return process;
+}
+function mergeSortRec(arr, process) {
+    let length = arr.length;
+    if (length === 1) {
+        return arr;
+    }
+    let mid = Math.floor(length/2),left = arr.slice(0,mid),right = arr.slice(mid,length);
+    return merge(mergeSortRec(left,process),mergeSortRec(right,process));
+}
+function merge(left,right) {
+    let result = [],il = 0,ir = 0;
+    while (il < left.length && ir < right.length) {
+        if (left[il] < right[ir]) {
+            result.push(left[il++]);
+        }else {
+            result.push(right[ir++]);
         }
-        return result.concat(left.concat(right));
+    }
+    while (il < right.length) {
+        result.push(left[il++]);
+    }
+    while (ir < right.length) {
+        result.push(right[ir++]);
     }
 
-    let len = arr.length, mid = parseInt(len / 2);
-    if (len < 2) return arr;
-    return merge(MergeSort(arr.slice(0, mid)), MergeSort(arr.slice(mid)));
+    return result;
 }
-
+*/
+function MergeSort(array) {
+    let process = [array.slice()];
+    function sort(array, first, last) {
+        first = (first === undefined) ? 0 : first
+        last = (last === undefined) ? array.length - 1 : last
+        if (last - first < 1) {
+            return;
+        }
+        var middle = Math.floor((first + last) / 2);
+        sort(array, first, middle);
+        sort(array, middle + 1, last);
+        var f = first,
+            m = middle,
+            i,
+            temp;
+        while (f <= m && m + 1 <= last) {
+            if (array[f] >= array[m + 1]) { // 这里使用了插入排序的思想
+                temp = array[m + 1];
+                for (i = m; i >= f; i--) {
+                    array[i + 1] = array[i];
+                }
+                array[f] = temp;
+                process.push(array.slice());
+                m++
+            } else {
+                f++
+            }
+        }
+        return array;
+    }
+    sort(array);
+    return process;
+}
 
 function QuickSort(arr) {
     let process = [arr.slice()];
