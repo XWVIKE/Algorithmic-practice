@@ -1,8 +1,8 @@
 /*  canvas box  */
 
 function createHtml () {
-    let width = 1525;
-    let height = 1414;
+    let width = 1523;
+    let height = 600;
     let newCanvas = document.createElement("canvas");
     newCanvas.id = "box";
     newCanvas.setAttribute("width",width);

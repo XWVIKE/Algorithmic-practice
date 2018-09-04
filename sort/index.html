@@ -8,7 +8,7 @@
         #control{
             width: 300px;
             position: relative;
-            top: -1300px;
+            top: -597px;
             left: 1526px;
         }
         #control label{
@@ -33,6 +33,7 @@
 <div id="control">
     <label>
         <select id="select" onchange="switchButt(this.value)">
+            <option value="none">请选择</option>
             <option value="bubbleSort">冒泡排序</option>
             <option value="selectionSort">选择排序</option>
             <option value="insertionSort">插入排序</option>
@@ -41,9 +42,6 @@
             <option value="heapSort">堆排序</option>
         </select>
     </label>
-    <input type="button" value="start" id="start">
-    <input type="button" value="pause" id="pause">
-    <input type="button" value="restart" id="restart">
 </div>
 <script src="drawing.js"></script>
 </body>
