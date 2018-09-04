@@ -66,41 +66,58 @@ function InsertionSort(arr) {
     return process;
 }
 
-function f() {
-
-}
-
 function MergeSort(arr) {
-    let array = mergeSortRec(arr);
-}
-function mergeSortRec(arr) {
-    let length = arr.length;
-    if (length === 1) {
-        return arr
+    function merge(left, right) {
+        let result = [];
+        while (left.length && right.length) {
+            result.push(left[0] <= right[0] ? left.shift() : right.shift())
+        }
+        return result.concat(left.concat(right));
     }
-    let mid = Math.floor(length/2),
-    left = arr.slice(0,mid),
-        right = arr.slice(mid,length);
-    return merge(mergeSortRec(left),mergeSortRec(right));
+
+    let len = arr.length, mid = parseInt(len / 2);
+    if (len < 2) return arr;
+    return merge(MergeSort(arr.slice(0, mid)), MergeSort(arr.slice(mid)));
 }
-function merge(left, right) {
-    let result = [],
-    il = 0,ir = 0;
-    while (il < left.length && ir < right.length) {
-        if (left[il] < right[ir]) {
-            result.push(left++);
-        }else {
-            result.push(right[ir++])
+
+
+function QuickSort(arr) {
+    let process = [arr.slice()];
+    quick(arr,0,arr.length - 1,process);
+    return process;
+}
+function quick(arr, left, right,process) {
+    let index;
+    if (arr.length > 1) {
+        index = partition(arr,left,right,process);
+        if (left < index - 1) {
+            quick(arr,left,index-1,process)
+        }
+        if (index < right) {
+            quick(arr,index,right,process)
         }
     }
-    while (il < left.length) {
-        result.push(left[il++])
-    }
-    while (ir < right.length) {
-        result.push(right[ir++])
-    }
-    return result;
 }
+function partition(arr, left, right,process) {
+    let pivot = arr[Math.floor((left+right)/2)],
+    i = left,j = right;
+    while (i <= j) {
+        while (arr[i] < pivot) {
+            i++
+        }
+        while (arr[j] > pivot) {
+            j--
+        }
+        if (i <= j) {
+            [arr[i],arr[j]] = [arr[j],arr[i]];
+            process.push(arr.slice());
+            i++;
+            j--;
+        }
+    }
+    return i;
+}
+
 function drawLine(context,arr) {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.fillStyle = "#e1edff";
@@ -145,6 +162,12 @@ function switchButt (value) {
             break;
         case "insertionSort":
             draw(InsertionSort,drawLine);
+            break;
+        case "mergeSort":
+            draw(MergeSort,drawLine);
+            break;
+        case "quickSort":
+            draw(QuickSort,drawLine);
             break;
         default:return;
 
