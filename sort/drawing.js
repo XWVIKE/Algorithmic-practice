@@ -1,7 +1,7 @@
 let x = 0,y = 0;
 const drawing = document.getElementById("box");
 const context = drawing.getContext("2d");
-let arrLength = 500;
+let arrLength = 600;
 let lineWidth = context.canvas.width/arrLength;
 const createArr = function (num){
     this.arr = Object.keys(Array.from({
@@ -9,7 +9,6 @@ const createArr = function (num){
     })).map(function (item) {
         return +item;
     });
-
 };
 
 createArr.prototype.FisherYatesShuffle = function () {
@@ -57,7 +56,6 @@ function InsertionSort(arr) {
         temp = arr[i];
         while (j > 0 && arr[j - 1] > temp) {
             arr[j] = arr[j-1];
-            //process.push(arr.slice());
             j--
         }
         arr[j] = temp;
@@ -118,6 +116,40 @@ function partition(arr, left, right,process) {
     return i;
 }
 
+function HeapSort(arr) {
+    let process = [arr.slice()];
+    let heapSize = arr.length;
+    buildHeap(arr);
+    while (heapSize > 1) {
+        heapSize--;
+        [arr[0],arr[heapSize]] = [arr[heapSize],arr[0]];
+        process.push(arr.slice());
+        heapify(arr,heapSize,0)
+    }
+    return process;
+}
+
+function buildHeap(arr) {
+    let heapSize = arr.length;
+    for (let i = Math.floor(arr.length/2);i>=0;i--) {
+        heapify(arr,heapSize,i)
+    }
+}
+
+function heapify(arr,heapSize,i) {
+    let left = i*2+1,right = i*2+2,largest = i;
+    if (left < heapSize && arr[left] > arr[largest]) {
+        largest = left;
+    }
+    if (right < heapSize && arr[right] > arr[largest]) {
+        largest = right;
+    }
+    if (largest !== i) {
+        [arr[i],arr[largest]] = [arr[largest],arr[i]];
+        heapify(arr,heapSize,largest);
+    }
+}
+
 function drawLine(context,arr) {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.fillStyle = "#e1edff";
@@ -168,6 +200,9 @@ function switchButt (value) {
             break;
         case "quickSort":
             draw(QuickSort,drawLine);
+            break;
+        case "heapSort":
+            draw(HeapSort,drawLine);
             break;
         default:return;
 
